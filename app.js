@@ -5,7 +5,8 @@ var tuio    = require('epictuio'),
 
 var _tuio = new tuio({
     oscPort: 3333,
-    oscHost: "127.0.0.1"
+    oscHost: "127.0.0.1",
+    raw: false
 });
 
 var port = 8080;
