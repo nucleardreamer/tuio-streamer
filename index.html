@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io.connect('http://localhost');
+			var windowx = window.innerWidth;
+			var windowy = window.innerHeight;
+
+			$(document).ready(function(){
+
+				var cursorStore = [];
+				socket.on('tuio', function (data) {
+					if(data.alive !== 'null'){
+						if(cursorStore.indexOf(data.alive) == -1){
+							// first time cursor
+							cursorStore.push(data.alive);
+							$('body').append($('<div></div>').attr('class','cursor').attr('id', data.alive));
+							setTimeout(function(){
+								$('#'+data.alive).fadeOut(200,function(){
+									$(this).remove()
+								});
+							},3000);
+						}
+						if(data.data){
+							var top = (data.data.y * windowy) + 'px';
+							var left = (data.data.x * windowx) + 'px';
+							$('#'+data.alive).css({
+								top: top,
+								left: left
+							})
+						}
+					}
+					
+				});
+
+			})
+		</script>
+		<style type="text/css">
+			html,body{
+				padding: 0;
+				margin: 0;
+				height:100%;
+				width:100%;
+			}
+			.cursor{
+				height: 50px;
+				width: 50px;
+				-webkit-border-radius: 50px;
+				background-color: #222;
+				position: absolute;
+				top:0;
+				left:0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="cursor"></div>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "tuio",
+  "version": "0.0.1",
+  "description": "tuio helper for spitting out OSC object data",
+  "main": "app.js",
+  "dependencies": {
+    "epictuio": "~0.0.1",
+    "express": "*",
+    "socket.io": "0.9.*"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm":  "1.1.x"
+  },
+  "scripts": {
+      "start": "node app.js",
+      "nodemon": "nodemon --watch listener -e json"
+  },
+  "author": "flynn joffray",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+}
